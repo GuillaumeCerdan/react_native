@@ -1,6 +1,7 @@
 import React from 'react';
 import Storage from 'react-native-storage';
 import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
+
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
 
@@ -20,9 +21,9 @@ const AppNavigator = createStackNavigator({
 
 const AppContainer = createAppContainer(AppNavigator);
 
-storage = new Storage({
+const storage = new Storage({
   size: 1000,
-  storageBackend: AsyncStorage,
+  storageBackend: AsyncStorage, 
   defaultExpires: 1000 * 3600 * 24,
   enableCache: true,
   sync : {
@@ -47,37 +48,19 @@ export default class App extends React.Component {
 
   async componentDidMount() {
 
-    await this.retrieveData("isOnBoardingPassed").then(()=> {
-
-      alert('this.state.isOnBoardingPassed : ' + this.state.isOnBoardingPassed);
-      
-      if (this.state.isOnBoardingPassed == true) {
+    global.storage.load({
+      key: "isOnBoardingPassed" 
+    }).then(ret => {
+      if (ret == true) {
         alert("yaaa");
       } else {
-        alert('aaay');
+        alert("aaay");
       }
-      
     });
 
     //AppNavigator.initialRouteName = "Home";
 
   }
-
-  retrieveData = async (key) => {
-
-    global.storage.load({
-      key: key 
-    }).then(ret => {
-      this.setState({
-        isOnBoardingPassed: JSON.stringify(ret)
-      }, function(){
-  
-      });
-    }).catch(err => {
-      console.warn(err.message);
-    })
-    
-  };
 
 }
 
@@ -89,4 +72,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
