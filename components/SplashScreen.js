@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
+import Storage from 'react-native-storage';
 import { Button, View, Text, AsyncStorage } from 'react-native';
 import Onboarding from 'react-native-onboarding-swiper';
+
+storage = new Storage({
+  size: 1000,
+  storageBackend: AsyncStorage,
+  defaultExpires: 1000 * 3600 * 24,
+  enableCache: true,
+  sync : {
+
+  }
+});
 
 
 export default class SplashScreen extends Component {
@@ -10,11 +21,14 @@ export default class SplashScreen extends Component {
     const {navigate} = this.props.navigation;
 
     try {
-      await AsyncStorage.setItem("isOnBoardingPassed", "true");
+      global.storage.save({
+        key: 'isOnBoardingPassed',
+        data: true,
+        expires: 1000 * 3600
+    });
       navigate('Home');
-    } catch (error) {  
-      console.log(error);
-      await AsyncStorage.setItem("isOnBoardingPassed", "false");
+    } catch (error) {
+      alert(error);
       navigate('Home');
     }
 

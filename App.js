@@ -1,4 +1,5 @@
 import React from 'react';
+import Storage from 'react-native-storage';
 import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
@@ -14,32 +15,71 @@ const AppNavigator = createStackNavigator({
     screen: SplashScreen
   }
 }, {
-  initialRouteName: "Splash"
+  initialRouteName: "Home" 
 });
 
 const AppContainer = createAppContainer(AppNavigator);
 
+storage = new Storage({
+  size: 1000,
+  storageBackend: AsyncStorage,
+  defaultExpires: 1000 * 3600 * 24,
+  enableCache: true,
+  sync : {
+
+  }
+});
+
+global.storage = storage;
+
 export default class App extends React.Component {
 
-  render() {
-
-    if (retrieveData("isOnBoardingPassed") == "true") {
-      AppNavigator.initialRouteName = "Home";
+  constructor(props){
+    super(props);
+    this.state = { 
+      isOnBoardingPassed: false
     }
- 
-    alert("retrieve data" + retrieveData("isOnBoardingPassed").value); 
- 
+  }
+
+  render() {
     return <AppContainer />;
+  }
+
+  async componentDidMount() {
+
+    await this.retrieveData("isOnBoardingPassed").then(()=> {
+
+      alert('this.state.isOnBoardingPassed : ' + this.state.isOnBoardingPassed);
+      
+      if (this.state.isOnBoardingPassed == true) {
+        alert("yaaa");
+      } else {
+        alert('aaay');
+      }
+      
+    });
+
+    //AppNavigator.initialRouteName = "Home";
 
   }
 
-  componentDidMount() {
+  retrieveData = async (key) => {
+
+    global.storage.load({
+      key: key 
+    }).then(ret => {
+      this.setState({
+        isOnBoardingPassed: JSON.stringify(ret)
+      }, function(){
+  
+      });
+    }).catch(err => {
+      console.warn(err.message);
+    })
     
-  }
+  };
 
 }
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -48,34 +88,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-}); 
+});
 
-const retrieveData = async (key) => {
-    try {
-      const value = await AsyncStorage.getItem(key);
-      if (value !== null) {
-        return value;
-      } else {
-        return "b"; 
-      }
-    } catch (error) {
-      return false;
-      console.log(error);
-    }
-};
-
-
-
-/*
-
-const _setDataAndRedirect = async (key, value) => {
-  try {
-    await AsyncStorage.setItem(key, value);
-    this.props.navigation.navigate('Home');
-  } catch (error) {
-    console.log(error);
-    this.props.navigation.navigate('Home');
-  }
-}
-
-*/
