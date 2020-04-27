@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList, ActivityIndicator, Text, View, StyleSheet, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 
-//import customData from './data.json';
+import customData from './data.json';
 
 /*import {
   createBottomTabNavigator,
@@ -22,7 +22,7 @@ export default class HomeScreen extends React.Component {
 
   componentDidMount(){
 
-    return fetch('./data.json')
+    /*return fetch('./data.json')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -34,6 +34,13 @@ export default class HomeScreen extends React.Component {
       })
       .catch((error) =>{
         console.error(error);
+      });*/
+
+      this.setState({
+        isLoading: false,
+        dataSource: customData,
+      }, function(){
+  
       });
       
   }
