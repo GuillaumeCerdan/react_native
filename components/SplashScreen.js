@@ -1,23 +1,33 @@
 import React, { Component } from 'react';
-import { Button, View, Text } from 'react-native';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
-import Storage from 'react-native-storage';
-import { AsyncStorage } from 'react-native';
+import { Button, View, Text, AsyncStorage } from 'react-native';
 import Onboarding from 'react-native-onboarding-swiper';
 
 
 export default class SplashScreen extends Component {
-  /*goToHome(){
+
+  goToHome = async () => {
+
     const {navigate} = this.props.navigation;
-    navigate('Home')
-  }*/
+
+    try {
+      await AsyncStorage.setItem("isOnBoardingPassed", "true");
+      navigate('Home');
+    } catch (error) {  
+      console.log(error);
+      await AsyncStorage.setItem("isOnBoardingPassed", "false");
+      navigate('Home');
+    }
+
+  }
+
+
   render() {
     
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Onboarding
-         // onDone={this.goToHome}
-          onSkip={() => this.props.navigation.navigate('Home')}
+          onDone={this.goToHome}
+          onSkip={this.goToHome}
           pages={[
             {
               backgroundColor: 'blue',

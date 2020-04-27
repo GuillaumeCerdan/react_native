@@ -20,15 +20,12 @@ const AppNavigator = createStackNavigator({
 const AppContainer = createAppContainer(AppNavigator);
 
 export default class App extends React.Component {
-
   render() {
-
-    if (retrieveData("isOnBoardingPassed") == "true") {
+    if (_retrieveData("isOnBoardingPassed") == true) {
       AppNavigator.initialRouteName = "Home";
+      alert(AppNavigator.initialRouteName); 
     }
- 
-    alert("retrieve data" + retrieveData("isOnBoardingPassed").value); 
- 
+
     return <AppContainer />;
 
   }
@@ -48,15 +45,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-}); 
+});
 
-const retrieveData = async (key) => {
+const _retrieveData = async (key) => {
     try {
       const value = await AsyncStorage.getItem(key);
       if (value !== null) {
+        alert(value);
         return value;
       } else {
-        return "b"; 
+        return false; 
       }
     } catch (error) {
       return false;

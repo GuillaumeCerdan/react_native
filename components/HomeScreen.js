@@ -9,8 +9,7 @@ export default class HomeScreen extends Component {
           <Text>Home Screen</Text>
             <Button
             title="Go to Splash"
-            onPress={() => this.props.navigation.navigate('Splash')}
-  />
+            onPress={() => this.props.navigation.navigate('Splash')}/>
         </View>
       )
     }
