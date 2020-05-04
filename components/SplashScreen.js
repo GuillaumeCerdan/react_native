@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import Storage from 'react-native-storage';
 import { Button, View, Text, AsyncStorage } from 'react-native';
 import Onboarding from 'react-native-onboarding-swiper';
-
- 
+import { _storeData } from "../utils/utils";
 
 
 export default class SplashScreen extends Component {
@@ -11,31 +10,8 @@ export default class SplashScreen extends Component {
   goToHome = async () => {
 
     const {navigate} = this.props.navigation;
-
-    try {
-      global.storage.save({
-        key: 'isOnBoardingPassed',
-        data: true,
-        expires: 1000 * 3600
-    });
-      //navigate('Home');
-    } catch (error) {
-      alert(error);
-      //navigate('Home'); 
-    }
-
-
-    global.storage.load({
-      key: "isOnBoardingPassed" 
-    }).then(ret => {
-      if (ret == true) {
-        alert("yaaa")
-      } else {
-        alert("aaay");
-      }
-    });
-
-    
+    _storeData();
+    navigate("Home");
 
   }
 
