@@ -34,7 +34,7 @@ export const getStorage = (key) => {
 
 export const saveToStorage = (key, value, expires = null) => {
     storage.save({
-        key: "onBoardingPassed",
+        key: key,
         data: true,
         expires: expires
     });
@@ -47,9 +47,9 @@ export const destroyStorage = (key) => {
 }
 
 
-export const _storeData = async () => {
+export const _storeData = async (key, value) => {
     try {
-      await AsyncStorage.setItem('onBoardingPassed', JSON.stringify(false));
+      await AsyncStorage.setItem(key, JSON.stringify(value));
     } catch (error) {
       alert(error);
     }
@@ -60,9 +60,8 @@ export const _retrieveData = async (key) => {
     try {
       const value = await AsyncStorage.getItem(key);
       if (value !== null) {
-        result = JSON.parse(value);
+        return await JSON.parse(value);
       }
-      return await JSON.parse(value);
     } catch (error) {
         alert(JSON.stringify(error));
         return error;

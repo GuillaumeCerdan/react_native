@@ -10,7 +10,7 @@ export default class SplashScreen extends Component {
   goToHome = async () => {
 
     const {navigate} = this.props.navigation;
-    _storeData();
+    _storeData('onBoardingPassed', false);
     navigate("Home");
 
   }
