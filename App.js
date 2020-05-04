@@ -1,37 +1,28 @@
-import React from 'react';
-import Storage from 'react-native-storage';
-import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
+import * as React from 'react';
+import { Text, View } from 'react-native';
 
-import { createStackNavigator } from "react-navigation-stack";
-import { createAppContainer } from "react-navigation";
+import { NavigationContainer } from '@react-navigation/native';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 import { _retrieveData } from "./utils/utils";
-
 import HomeScreen from './components/HomeScreen';
-import SplashScreen from './components/SplashScreen';
+import SettingsScreen from './components/SettingsScreen';
+import FiltersScreen from './components/FiltersScreen';
 
-const AppNavigator = createStackNavigator({
-  Home: {
-    screen: HomeScreen
-  },
-  Splash: {
-    screen: SplashScreen
-  }
-});
- 
-const AppContainer = createAppContainer(AppNavigator);
+const Tab = createMaterialBottomTabNavigator();
 
 export default class App extends React.Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
-    return(
-      <AppContainer />
+    return (
+      <NavigationContainer>
+        <Tab.Navigator>
+          <Tab.Screen name="Home" component={HomeScreen} />
+          <Tab.Screen name="Filters" component={FiltersScreen} />
+          <Tab.Screen name="Settings" component={SettingsScreen} />
+        </Tab.Navigator>
+      </NavigationContainer>
     );
-    // return <AppContainer />;
   }
 
   async componentDidMount() {
@@ -43,14 +34,6 @@ export default class App extends React.Component {
       
   }
 
+  
+
 }
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
-});

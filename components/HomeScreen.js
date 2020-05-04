@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, View, Text, FlatList, TouchableOpacity, TouchableWithoutFeedback, StyleSheet } from 'react-native';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 export default class HomeScreen extends Component {
 
@@ -19,12 +18,6 @@ export default class HomeScreen extends Component {
           renderItem={({ item }) => <Item title={item.name} date={item.date} arrete={item.arrete} style={styles.item} />}
           keyExtractor={({ id }, index) => id.toString()}
         />
-        <TouchableOpacity
-          title="Press me"
-          color="#66CDAA"
-          onPress={this.alertMe}
-          activeOpacity={0.9}
-          style={styles.button}><Text style={styles.textButton}>TEST BOUTON</Text></TouchableOpacity>
       </View>
     )
   }
