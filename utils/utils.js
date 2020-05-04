@@ -35,7 +35,7 @@ export const getStorage = (key) => {
 export const saveToStorage = (key, value, expires = null) => {
     storage.save({
         key: key,
-        data: true,
+        data: value,
         expires: expires
     });
 }
