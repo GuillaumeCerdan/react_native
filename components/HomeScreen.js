@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, View, Text, FlatList, TouchableOpacity, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 
-import mySS from "../shared/MySharedServices";
+import mySharedService from "../shared/MySharedServices";
 
 export default class HomeScreen extends Component {
 
@@ -26,8 +26,7 @@ export default class HomeScreen extends Component {
 
   async componentDidMount() {
 
-    // mySS ==> MySharedServices
-    mySS.getArretesList().then((response) => response.json())
+    mySharedService.getArretesList().then((response) => response.json())
     .then(data => {
       this.setState({
         allArretes: data,

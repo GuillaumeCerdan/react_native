@@ -12,5 +12,5 @@ class MySharedServices {
 
 }
 
-const mySS = new MySharedServices();
-export default mySS;
+const mySharedService = new MySharedServices();
+export default mySharedService;
