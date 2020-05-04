@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, View, Text, FlatList, TouchableOpacity, TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import mySharedService from "../shared/MySharedServices";
 
@@ -17,13 +18,17 @@ export default class HomeScreen extends Component {
       <View style={styles.view}>
         <FlatList
           data={this.state.allArretes}
-          renderItem={({ item }) => <Item title={item.name} date={item.date} arrete={item.arrete} style={styles.item} />}
+          renderItem={({ item }) => <Item title={item.name} date={this.renderDate(item.date)} prefecture={item.prefecture.name} style={styles.item} />}
           keyExtractor={({ id }, index) => id.toString()}
         />
       </View>
     )
   }
 
+  renderDate(str) {
+    return str.split("T")[0];
+  }
+ 
   async componentDidMount() {
 
     mySharedService.getArretesList().then((response) => response.json())
@@ -36,67 +41,69 @@ export default class HomeScreen extends Component {
   }
 }
 
-function Item({ title, date, arrete }) {
+function Item({ title, date, prefecture }) {
   return (
     <TouchableWithoutFeedback onPress={() => alert(title)}>
       <View style={styles.item}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.smallText}>{date}</Text>
-        <Text style={styles.arrete}>{arrete}{arrete}{arrete}</Text>
+
+        <View style={styles.layoutHorizontal}>
+          <Text style={styles.title}>{title}</Text>
+          <MaterialCommunityIcons styles={styles.buttonPinned} name="pin-outline" size={25} />
+        </View>
+
+        <View style={styles.layoutHorizontal}>
+          <Text>Ceci est la description de mon arrêté, qui n'est pas encore dans le json</Text>
+        </View>
+
+        <View style={styles.layoutHorizontal}>
+          <Text style={styles.prefectures}>{prefecture}</Text>
+          <Text style={styles.date}>{date}</Text>
+        </View>
+
       </View>
     </TouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  bigBlue: {
-    color: 'blue',
-    fontWeight: 'bold',
-    fontSize: 30,
-    textTransform: "uppercase"
-  },
-  red: {
-    color: 'red',
-  },
   item: {
     flex: 1,
-    padding: 20
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    marginHorizontal: 20,
+    marginVertical: 10,
+    borderRadius: 6,
+    color: "#20232a",
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "bold",
   },
   view: {
     flex: 1, 
     paddingTop:28,
     backgroundColor: "#F3F3F3"
   },
+  buttonPinned: {
+    flex: 1
+  },
   title: {
     fontWeight: 'bold',
     fontSize: 20, 
-    color: "#000"
+    color: "#000",
+    flex: 2
   },
-  prefecture: {
-    padding: 4,
-    fontWeight: "bold",
-    backgroundColor: "#1FCDA3",
-    alignSelf: "flex-start",
-    marginTop: 10
+  prefectures: {
+    fontSize: 18,
+    color: "#000",
+    flex: 2
   },
-  button: {
-    backgroundColor: "#1FCDA3",
-    padding: 20
+  layoutHorizontal: {
+    flexDirection: "row",
+    flex: 1,
+    alignItems: "flex-start",
+    alignContent: "space-between"
   },
-  textButton: {
-    color: "#ffffff",
-    textAlign: "center"
-  },
-  arrete: {
-    paddingTop: 5
-  },
-  smallText: {
-    
+  date: {
+    flex: 1
   }
 });
