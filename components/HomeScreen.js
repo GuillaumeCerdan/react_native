@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Button, View, Text, FlatList, TouchableOpacity, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 
+import mySS from "../shared/MySharedServices";
+
 export default class HomeScreen extends Component {
 
   constructor(props) {
@@ -22,19 +24,16 @@ export default class HomeScreen extends Component {
     )
   }
 
-  componentDidMount() {
-    fetch("http://www.getup.agency/dev/react/api.php")
-      .then((response) => response.json())
-      .then(data => {
-        this.setState({
-          allArretes: data
-        }, function () {
+  async componentDidMount() {
 
-        });
+    // mySS ==> MySharedServices
+    mySS.getArretesList().then((response) => response.json())
+    .then(data => {
+      this.setState({
+        allArretes: data,
       })
-      .catch(function (error) {
-        alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
-      });
+    });
+    
   }
 }
 

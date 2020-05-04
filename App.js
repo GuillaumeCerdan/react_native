@@ -16,7 +16,10 @@ export default class App extends React.Component {
   render() {
     return (
       <NavigationContainer>
-        <Tab.Navigator>
+        <Tab.Navigator
+          activeColor="#ffffff"
+          inactiveColor="#000000"
+          barStyle={{ backgroundColor: '#788896' }}>
           <Tab.Screen name="Home" component={HomeScreen} />
           <Tab.Screen name="Filters" component={FiltersScreen} />
           <Tab.Screen name="Settings" component={SettingsScreen} />
@@ -31,7 +34,7 @@ export default class App extends React.Component {
       // const {navigate} = this.props.navigation;
       // navigate("Splash");
     }
-      
+
   }
 
   
