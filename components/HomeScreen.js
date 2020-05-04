@@ -18,7 +18,7 @@ export default class HomeScreen extends Component {
       <View style={styles.view}>
         <FlatList
           data={this.state.allArretes}
-          renderItem={({ item }) => <Item title={item.name} date={this.renderDate(item.date)} prefecture={item.prefecture.name} style={styles.item} />}
+          renderItem={({ item }) => <Item title={item.name} date={this.renderDate(item.date)} prefecture={item.prefecture.name} pinned={item.pinned} style={styles.item} />}
           keyExtractor={({ id }, index) => id.toString()}
         />
       </View>
@@ -41,20 +41,23 @@ export default class HomeScreen extends Component {
   }
 }
 
-function Item({ title, date, prefecture }) {
+function Item({ title, date, prefecture, pinned }) {
   return (
     <TouchableWithoutFeedback onPress={() => alert(title)}>
       <View style={styles.item}>
 
         <View style={styles.layoutHorizontal}>
           <Text style={styles.title}>{title}</Text>
-          <MaterialCommunityIcons styles={styles.buttonPinned} name="pin-outline" size={25} />
+          <TouchableOpacity onPress={() => alert('coucou')}>
+           <MaterialCommunityIcons styles={styles.buttonPinned} name="pin-outline" size={25} />
+          </TouchableOpacity>
+          
         </View>
 
         <View style={styles.layoutHorizontal}>
           <Text>Ceci est la description de mon arrêté, qui n'est pas encore dans le json</Text>
         </View>
-
+ 
         <View style={styles.layoutHorizontal}>
           <Text style={styles.prefectures}>{prefecture}</Text>
           <Text style={styles.date}>{date}</Text>
@@ -80,7 +83,7 @@ const styles = StyleSheet.create({
   },
   view: {
     flex: 1, 
-    paddingTop:28,
+    paddingTop:0,
     backgroundColor: "#F3F3F3"
   },
   buttonPinned: {
@@ -101,9 +104,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flex: 1,
     alignItems: "flex-start",
-    alignContent: "space-between"
+    alignContent: "space-between",
+    justifyContent: 'center'
   },
   date: {
-    flex: 1
+    fontSize: 14
   }
 });
