@@ -3,8 +3,8 @@ import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
 
-import HomeScreen from './components/HomeScreen';
-import SplashScreen from './components/SplashScreen';
+import HomeScreen from './screens/HomeScreen';
+import SplashScreen from './screens/SplashScreen';
 
 const AppNavigator = createStackNavigator({
   Home: {

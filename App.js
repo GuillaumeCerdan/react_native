@@ -1,18 +1,13 @@
 import * as React from 'react';
 import { Text, View, StyleSheet, SafeAreaView } from 'react-native';
 
-import { NavigationContainer } from '@react-navigation/native';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+
 import ActionBar from 'react-native-action-bar';
 
-
 import { _retrieveData } from "./utils/utils";
-import HomeScreen from './components/HomeScreen';
-import SettingsScreen from './components/SettingsScreen';
-import FiltersScreen from './components/FiltersScreen';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-
-const Tab = createMaterialBottomTabNavigator();
+import BottomNavigation from './uicomponents/BottomNavigation';
+import SplashScreen from './screens/SplashScreen';
 
 export default class App extends React.Component {
 
@@ -24,46 +19,9 @@ export default class App extends React.Component {
 					style={styles.actionBar}
 					title={'Application CDA'} />
 
-				<NavigationContainer>
-					
-					<Tab.Navigator
-						activeColor="#ffffff"
-						inactiveColor="#000000"
-						barStyle={{ backgroundColor: '#788896' }}>
+				{/* uicomponents/BottomNavigation */}
+				<BottomNavigation/>
 
-						<Tab.Screen
-							name="Home"
-							component={HomeScreen} 
-							options={{
-								tabBarLabel: 'Home',
-								tabBarIcon: ({ color }) => (
-								<MaterialCommunityIcons name="home" color={color} size={25} />
-								)
-							}} />
-						<Tab.Screen 
-							name="Filters" 
-							component={FiltersScreen}
-							options={{
-								tabBarLabel: 'Filters',
-								tabBarIcon: ({ color }) => (
-								<MaterialCommunityIcons name="filter" color={color} size={25} />
-								)
-							}} />
-						<Tab.Screen 
-							name="Settings" 
-							component={SettingsScreen} 
-							options={{
-								tabBarLabel: 'Settings',
-								tabBarIcon: ({ color }) => (
-								<MaterialCommunityIcons name="cogs" color={color} size={25} />
-								)
-							}}/>
-
-					</Tab.Navigator>
-
-					
-
-				</NavigationContainer>
 			</SafeAreaView>
 		);
 	}
@@ -75,11 +33,16 @@ export default class App extends React.Component {
 			// navigate("Splash");
 		}
 
+		//alert(JSON.stringify(this.props)); 
+		//navigation.navigate('SplashScreen');
+
 	}
 
-
-
 }
+
+/*const stack = createStackNavigator({
+	Splash: {screen: SplashScreen}
+})*/
 
 const styles = StyleSheet.create({
 	mainView: {

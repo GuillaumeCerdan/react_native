@@ -1,0 +1,61 @@
+import * as React from 'react';
+//import { Text, View, StyleSheet, SafeAreaView } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
+
+import HomeScreen from '../screens/HomeScreen';
+import SettingsScreen from '../screens/SettingsScreen';
+import FiltersScreen from '../screens/FiltersScreen';
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+
+
+const Tab = createMaterialBottomTabNavigator();
+
+export default class BottomNavigation extends React.Component {
+    render() {
+        return (
+            <NavigationContainer>
+                
+                <Tab.Navigator
+                    activeColor="#ffffff"
+                    inactiveColor="#000000"
+                    barStyle={{ backgroundColor: '#788896' }}>
+
+                    <Tab.Screen
+                        name="Home"
+                        component={HomeScreen} 
+                        options={{
+                            tabBarLabel: 'Home',
+                            tabBarIcon: ({ color }) => (
+                            <MaterialCommunityIcons name="home" color={color} size={25} />
+                            )
+                        }} />
+                    <Tab.Screen 
+                        name="Filters" 
+                        component={FiltersScreen}
+                        options={{
+                            tabBarLabel: 'Filters',
+                            tabBarIcon: ({ color }) => (
+                            <MaterialCommunityIcons name="filter" color={color} size={25} />
+                            )
+                        }} />
+                    <Tab.Screen 
+                        name="Settings" 
+                        component={SettingsScreen} 
+                        options={{
+                            tabBarLabel: 'Settings',
+                            tabBarIcon: ({ color }) => (
+                            <MaterialCommunityIcons name="cogs" color={color} size={25} />
+                            )
+                        }}/>
+
+                </Tab.Navigator>
+
+                
+
+            </NavigationContainer>
+		);
+    }
+}

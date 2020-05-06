@@ -10,8 +10,8 @@ import { _retrieveData } from "./utils/utils";
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
-import HomeScreen from './components/HomeScreen';
-import SplashScreen from './components/SplashScreen';
+import HomeScreen from './screens/HomeScreen';
+import SplashScreen from './screens/SplashScreen';
 
 const AppNavigator = createStackNavigator({
   Home: {
