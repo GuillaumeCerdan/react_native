@@ -12,7 +12,7 @@ import SplashScreen from './screens/SplashScreen';
 export default class App extends React.Component {
 
 	render() {
-		return (
+		return ( 
 			<SafeAreaView style={styles.mainView}>
 
 				<ActionBar 
