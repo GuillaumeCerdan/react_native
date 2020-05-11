@@ -31,7 +31,7 @@ export default class HomeScreen extends Component {
  
   async componentDidMount() {
 
-    mySharedService.getArretesList().then((response) => response.json())
+    mySharedService.getAllArretesList().then((response) => response.json())
     .then(data => {
       this.setState({
         allArretes: data,

@@ -2,11 +2,18 @@
 
 class MySharedServices {
 
-    baseUrl = "http://www.getup.agency/dev/react";
+    //baseUrl = "http://www.getup.agency/dev/react";
+    baseUrl = "https://693d800c.ngrok.io/react_native_api/";
+    itemUrl = "arrete/" 
 
     // TODO : inclure les .then dans ce fichier
-    async getArretesList() {
-        const res = await fetch(this.baseUrl + "/api.php");
+    async getAllArretesList() {
+        const res = await fetch(this.baseUrl + this.itemUrl + "/getAll.php");
+        return res;
+    };
+
+    async getArreteById(id) {
+        const res = await fetch(this.baseUrl + this.itemUrl + "/getById.php?id=" + id);
         return res;
     };
 
