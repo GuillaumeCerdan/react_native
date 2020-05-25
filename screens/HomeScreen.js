@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { Button, View, Text, FlatList, TouchableOpacity, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
+import { useNavigation } from '@react-navigation/native';
+
+import { _retrieveData } from "../utils/utils";
+
+
 import mySharedService from "../shared/MySharedServices";
 
 export default class HomeScreen extends Component {
@@ -29,15 +34,20 @@ export default class HomeScreen extends Component {
     return str.split("T")[0];
   }
  
-  async componentDidMount() {
+  async componentDidMount() { 
 
+    var result = await _retrieveData("onBoardingPassed");
+		if (!result) {
+      this.props.navigation.navigate("Splash");
+    }
+ 
     mySharedService.getAllArretesList().then((response) => response.json())
     .then(data => {
       this.setState({
         allArretes: data,
       })
     });
-    
+ 
   }
 }
 

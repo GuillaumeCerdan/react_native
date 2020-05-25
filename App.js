@@ -5,11 +5,17 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import ActionBar from 'react-native-action-bar';
 
-import { _retrieveData } from "./utils/utils";
 import BottomNavigation from './uicomponents/BottomNavigation';
 import SplashScreen from './screens/SplashScreen';
 
 export default class App extends React.Component {
+
+	constructor(props) {
+		super(props);
+		/*this.setState({
+			navigation: this.props.navigation
+		});*/
+	}
 
 	render() {
 		return ( 
@@ -19,7 +25,6 @@ export default class App extends React.Component {
 					style={styles.actionBar}
 					title={'Application CDA'} />
 
-				{/* uicomponents/BottomNavigation */}
 				<BottomNavigation/>
 
 			</SafeAreaView>
@@ -27,11 +32,11 @@ export default class App extends React.Component {
 	}
 
 	async componentDidMount() {
-		var result = await _retrieveData("onBoardingPassed");
-		if (!result) {
-			// const {navigate} = this.props.navigation;
-			// navigate("Splash");
-		}
+		/*var result = await _retrieveData("onBoardingPassed");
+		//if (!result) {
+		alert(JSON.stringify(this.props.navigation));//.navigate('Filters');
+			*/
+		//} 
 
 		//alert(JSON.stringify(this.props)); 
 		//navigation.navigate('SplashScreen');
@@ -46,8 +51,7 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
 	mainView: {
-		flex: 1, 
-		marginTop: 28
+		flex: 1
 	},
 	actionBar: { 
 		flex: 1, 
