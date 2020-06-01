@@ -3,7 +3,7 @@
 class MySharedServices {
 
     //baseUrl = "http://www.getup.agency/dev/react";
-    baseUrl = "http://2f7e25c9.ngrok.io/react_native_api/";
+    baseUrl = "https://www.getup.agency/dev/react/arrete/";
     itemUrl = "arrete/"
 
     // TODO : inclure les .then dans ce fichier
