@@ -6,10 +6,11 @@ export default class FiltersScreen extends Component {
 
 	constructor(props) {
 		super(props);
+		this.state = {
+			pickerValue: '',
+		  }
 	}
-
 	
-
 	render() {
 		return (
 			<SafeAreaView>
@@ -37,10 +38,10 @@ export default class FiltersScreen extends Component {
 						<View style={styles.view}>
 							<View style={styles.input}>
 								<Picker
-									selectedValue="option0"
+									selectedValue={(this.state && this.state.pickerValue) || 'option0'}
 									style={ styles.input }
-									onValueChange={(itemValue, itemIndex) => console.log(itemValue)}>
-
+									onValueChange={(itemValue) => this.setState({pickerValue: itemValue})}
+									>
 									<Picker.Item label="Choisir une préfecture" value="option0"/>
 									<Picker.Item label="Ardèche" value="option1"/>
 									<Picker.Item label="Var" value="option2"/>
