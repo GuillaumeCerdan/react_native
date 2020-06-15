@@ -16,14 +16,17 @@ export default class HomeScreen extends Component {
 
     this.state = {
       allArretes: undefined,
-      modalVisible: false
+      modalVisible: false,
+      arreteTitle: ''
     }
 
   }
 
-  setModalVisible = (visible) => {
+  setModalVisible = (visible, title) => {
     this.setState({ modalVisible: visible });
+    this.setState({ arreteTitle: title });
   }
+
   render() {
 
     return (
@@ -38,7 +41,7 @@ export default class HomeScreen extends Component {
         >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <Text style={styles.modalText}>Hello World!</Text>
+          <Text style={styles.modalText}>{this.state.arreteTitle}</Text>
 
               <TouchableHighlight
                 style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
@@ -81,8 +84,6 @@ export default class HomeScreen extends Component {
  
   }
 
-  
-
 }
 function OpenSplash({ screenName }) {
   const navigation = useNavigation();
@@ -92,7 +93,7 @@ function OpenSplash({ screenName }) {
 
 function Item ({ openModal, title, date, prefecture, pinned, modalVisible }) {
   return (
-    <TouchableWithoutFeedback onPress={() => openModal(!modalVisible)}>
+    <TouchableWithoutFeedback onPress={() => openModal(!modalVisible, title)}>
       <View style={styles.item}> 
 
         <View style={styles.layoutHorizontal}>
