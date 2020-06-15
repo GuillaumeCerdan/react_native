@@ -22,7 +22,8 @@ export default class BottomNavigation extends React.Component {
                 <Tab.Navigator
                     activeColor="#ffffff"
                     inactiveColor="#000000"
-                    barStyle={{ backgroundColor: '#788896' }}>
+                    barStyle={{ backgroundColor: '#788896'}}
+                    >
 
                     <Tab.Screen
                         name="Home"

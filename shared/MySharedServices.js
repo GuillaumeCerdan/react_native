@@ -3,7 +3,7 @@
 class MySharedServices {
 
     //baseUrl = "http://www.getup.agency/dev/react";
-    baseUrl = "https://www.getup.agency/dev/react/arrete/";
+    baseUrl = "https://www.getup.agency/dev/react/";
     itemUrl = "arrete/"
 
     // TODO : inclure les .then dans ce fichier
