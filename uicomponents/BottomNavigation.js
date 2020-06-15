@@ -7,6 +7,7 @@ import HomeScreen from '../screens/HomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import FiltersScreen from '../screens/FiltersScreen';
 import SplashScreen from '../screens/SplashScreen';
+import DetailScreen from '../screens/DetailScreen';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
@@ -22,8 +23,7 @@ export default class BottomNavigation extends React.Component {
                 <Tab.Navigator
                     activeColor="#ffffff"
                     inactiveColor="#000000"
-                    barStyle={{ backgroundColor: '#788896'}}
-                    >
+                    barStyle={{ backgroundColor: '#788896' }}>
 
                     <Tab.Screen
                         name="Home"
@@ -34,7 +34,16 @@ export default class BottomNavigation extends React.Component {
                             <MaterialCommunityIcons name="home" color={color} size={25} />
                             )
                         }} />
-                    <Tab.Screen 
+                    {/* <Tab.Screen 
+                        name="Detail" 
+                        component={DetailScreen}
+                        options={{
+                            tabBarLabel: 'Detail',
+                            tabBarIcon: ({ color }) => (
+                            <MaterialCommunityIcons name="filter" color={color} size={25} />
+                            )
+                        }} /> */}
+                     <Tab.Screen 
                         name="Filters" 
                         component={FiltersScreen}
                         options={{
@@ -43,7 +52,7 @@ export default class BottomNavigation extends React.Component {
                             <MaterialCommunityIcons name="filter" color={color} size={25} />
                             )
                         }} />
-                    <Tab.Screen 
+                    <Tab.Screen  
                         name="Settings" 
                         component={SettingsScreen} 
                         options={{
@@ -68,3 +77,20 @@ export default class BottomNavigation extends React.Component {
 		);
     }
 }
+
+
+
+
+/*
+
+<Tab.Screen 
+                        name="Filters" 
+                        component={FiltersScreen}
+                        options={{
+                            tabBarLabel: 'Filters',
+                            tabBarIcon: ({ color }) => (
+                            <MaterialCommunityIcons name="filter" color={color} size={25} />
+                            )
+                        }} />
+
+*/
