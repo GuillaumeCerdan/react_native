@@ -26,6 +26,8 @@ export default class App extends React.Component {
 				containerStyle={styles.actionBar}
 				backgroundColor='#33cc33'
 				title='APPLICATION CDA'
+				leftIconName={'back'}
+				onLeftPress={() => console.log('Left!')}
              />
 
 				<BottomNavigation/>
