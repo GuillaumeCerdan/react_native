@@ -10,15 +10,23 @@ import SplashScreen from '../screens/SplashScreen';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import DetailScreen from '../screens/DetailScreen';
 
 
 const Tab = createMaterialBottomTabNavigator();
 
 export default class StackNavigator extends React.Component {
+    
     render() { 
         return (
             <NavigationContainer>
-                
+                <Stack.Navigator>
+                    <Stack.Screen
+                    name="DetailScreen"
+                    component={DetailScreen}
+                    options={{ title: 'Welcome' }}
+                    />
+                </Stack.Navigator>
                 <Tab.Navigator
                     activeColor="#ffffff"
                     inactiveColor="#000000"

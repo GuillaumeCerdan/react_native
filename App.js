@@ -7,6 +7,7 @@ import ActionBar from 'react-native-action-bar';
 
 import BottomNavigation from './uicomponents/BottomNavigation';
 import SplashScreen from './screens/SplashScreen';
+import 'react-native-gesture-handler';
 
 export default class App extends React.Component {
 
