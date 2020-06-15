@@ -53,7 +53,7 @@ export default class HomeScreen extends Component {
 
 function Item({ title, date, prefecture, pinned }) {
   return (
-    <TouchableWithoutFeedback onPress={() => alert(title)}>
+    <TouchableWithoutFeedback onPress={() => useNavigation.navigate('Profile', { name: 'Jane' })}>
       <View style={styles.item}>
 
         <View style={styles.layoutHorizontal}>
