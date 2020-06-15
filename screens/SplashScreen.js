@@ -19,7 +19,7 @@ export default class SplashScreen extends Component {
   render() {
     
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ flex: 1, }}>
         <Onboarding
           onDone={this.goToHome}
           onSkip={this.goToHome}
