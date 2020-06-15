@@ -21,9 +21,11 @@ export default class App extends React.Component {
 		return ( 
 			<SafeAreaView style={styles.mainView}>
 
-				<ActionBar 
-					style={styles.actionBar}
-					title={'Application CDA'} />
+			<ActionBar
+				containerStyle={styles.actionBar}
+				backgroundColor='#33cc33'
+				title='APPLICATION CDA'
+             />
 
 				<BottomNavigation/>
 
@@ -54,7 +56,7 @@ const styles = StyleSheet.create({
 		flex: 1
 	},
 	actionBar: { 
-		flex: 1, 
-		height: 28 
+		marginTop: 28,
+		height: 45
 	}
 });
