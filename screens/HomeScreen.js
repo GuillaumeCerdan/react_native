@@ -37,7 +37,6 @@ export default class HomeScreen extends Component {
   }
 
   render() {
-
     return (
       <View style={styles.view}>
         <Modal
@@ -85,19 +84,29 @@ export default class HomeScreen extends Component {
         />
       </View>
     )
-  }
+  } 
 
   renderDate(str) {
     return str.split("T")[0];
   }
  
   async componentDidMount() { 
+ 
+    this.props.navigation.addListener('focus', () => {
+      console.log('coucoufocus');
+      mySharedService.getAllArretesList().then((response) => response.json())
+      .then(data => {
+        this.setState({
+          allArretes: data,
+        })
+      });
+		});
 
     var result = await _retrieveData("onBoardingPassed");
 		if (!result) {
       //this.props.navigation.navigate("Splash");
     }
- 
+    console.log('coucou');
     mySharedService.getAllArretesList().then((response) => response.json())
     .then(data => {
       this.setState({
@@ -108,11 +117,7 @@ export default class HomeScreen extends Component {
   }
 
 }
-function OpenSplash({ screenName }) {
-  const navigation = useNavigation();
-  navigation.navigate(screenName)
- 
-}
+
 
 function Item ({ openModal, data }) {
   return (

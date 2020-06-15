@@ -53,7 +53,7 @@ export default class BottomNavigation extends React.Component {
                             <MaterialCommunityIcons name="filter" color={color} size={25} />
                             )
                         }} />
-                    <Tab.Screen  
+                    <Tab.Screen
                         name="Settings" 
                         component={SettingsScreen} 
                         options={{
