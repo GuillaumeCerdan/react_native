@@ -8,6 +8,7 @@ import { _retrieveData } from "../utils/utils";
 
 
 import mySharedService from "../shared/MySharedServices";
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default class HomeScreen extends Component {
 
@@ -17,18 +18,25 @@ export default class HomeScreen extends Component {
     this.state = {
       allArretes: undefined,
       modalVisible: false,
-      arreteTitle: ''
+      arreteTitle: '',
+      arreteDate: '',
+      arretePrefecture: '',
     }
 
   }
 
-  setModalVisible = (visible, title) => {
+  setModalVisible = (visible, data) => {
     this.setState({ modalVisible: visible });
-    this.setState({ arreteTitle: title });
+    this.setState({ arreteTitle: data[0] });
+    this.setState({ arreteDate: data[1] });
+    this.setState({ arretePrefecture: data[2] });
+  }
+
+  hideModal = () => {
+    this.setState({ modalVisible: false });
   }
 
   render() {
-
     return (
       <View style={styles.view}>
         <Modal
@@ -39,42 +47,66 @@ export default class HomeScreen extends Component {
             Alert.alert("Modal has been closed.");
           }}
         >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-          <Text style={styles.modalText}>{this.state.arreteTitle}</Text>
+          <ScrollView>
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Text style={styles.modalText}>{this.state.arreteTitle}</Text>
+                <Text style={styles.modalText}>{this.state.arreteDate}</Text>
+                <Text style={styles.modalText}>{this.state.arretePrefecture}</Text>
 
-              <TouchableHighlight
-                style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                onPress={() => {
-                  this.setModalVisible(false);
-                }}
-              >
-                <Text style={styles.textStyle}>Hide Modal</Text>
-              </TouchableHighlight>
+                <TouchableHighlight
+                  style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                  onPress={() => {
+                    this.hideModal(false);
+                  }}
+                >
+                  <Text style={styles.textStyle}>Hide Modal</Text>
+                </TouchableHighlight>
+              </View>
             </View>
-          </View>
+          </ScrollView>
         </Modal>
 
         <FlatList
           data={this.state.allArretes}
-          renderItem={({ item }) => <Item openModal={this.setModalVisible} title={item.name} date={this.renderDate(item.date)} prefecture={item.prefecture.name} pinned={item.pinned} style={styles.item} />}
+
+          renderItem={({ item }) => <Item openModal={this.setModalVisible} 
+                                      data = {[
+                                        item.name, 
+                                        this.renderDate(item.date), 
+                                        item.prefecture.name, 
+                                        item.pinned
+                                      ]} 
+                                      style={styles.item} />
+          }
+
           keyExtractor={({ id }, index) => id.toString()}
         />
       </View>
     )
-  }
+  } 
 
   renderDate(str) {
     return str.split("T")[0];
   }
  
   async componentDidMount() { 
+ 
+    this.props.navigation.addListener('focus', () => {
+      console.log('coucoufocus');
+      mySharedService.getAllArretesList().then((response) => response.json())
+      .then(data => {
+        this.setState({
+          allArretes: data,
+        })
+      });
+		});
 
     var result = await _retrieveData("onBoardingPassed");
 		if (!result) {
       //this.props.navigation.navigate("Splash");
     }
- 
+    console.log('coucou');
     mySharedService.getAllArretesList().then((response) => response.json())
     .then(data => {
       this.setState({
@@ -85,19 +117,15 @@ export default class HomeScreen extends Component {
   }
 
 }
-function OpenSplash({ screenName }) {
-  const navigation = useNavigation();
-  navigation.navigate(screenName)
- 
-}
 
-function Item ({ openModal, title, date, prefecture, pinned, modalVisible }) {
+
+function Item ({ openModal, data }) {
   return (
-    <TouchableWithoutFeedback onPress={() => openModal(!modalVisible, title)}>
+    <TouchableWithoutFeedback onPress={() => openModal(true, data)}>
       <View style={styles.item}> 
 
         <View style={styles.layoutHorizontal}>
-          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.title}>{data[0]}</Text>
           <TouchableOpacity>
            <MaterialCommunityIcons styles={styles.buttonPinned} name="pin-outline" size={25} />
           </TouchableOpacity>
@@ -109,8 +137,8 @@ function Item ({ openModal, title, date, prefecture, pinned, modalVisible }) {
         </View>
  
         <View style={styles.layoutHorizontal}>
-          <Text style={styles.prefectures}>{prefecture}</Text>
-          <Text style={styles.date}>{date}</Text>
+          <Text style={styles.prefectures}>{data[3]}</Text>
+          <Text style={styles.date}>{data[2]}</Text>
         </View>
 
       </View>

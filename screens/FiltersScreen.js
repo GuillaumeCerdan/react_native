@@ -10,7 +10,11 @@ export default class FiltersScreen extends Component {
 			pickerValue: '',
 		  }
 	}
-	
+
+	goToHome = () => {
+		this.props.navigation.navigate('Home');
+	}
+
 	render() {
 		return (
 			<SafeAreaView>
@@ -96,7 +100,7 @@ export default class FiltersScreen extends Component {
 						</View>
 
 						<View style={styles.centered_flex}>
-							<TouchableOpacity style={styles.button_toggled_full}>
+							<TouchableOpacity style={styles.button_toggled_full} onPress={this.goToHome}>
 								<Text style={styles.button_text_toggled}>Appliquer les filtres</Text>
 							</TouchableOpacity>
 						</View>
@@ -115,9 +119,10 @@ export default class FiltersScreen extends Component {
 		)
 	}
 
-	componentDidMount() {
+	
 
-	}
+
+
 }
 
 const styles = StyleSheet.create({
