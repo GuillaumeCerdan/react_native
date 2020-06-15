@@ -16,10 +16,10 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 const Tab = createMaterialBottomTabNavigator();
 
 export default class BottomNavigation extends React.Component {
+  
     render() { 
         return (
             <NavigationContainer>
-                
                 <Tab.Navigator
                     activeColor="#ffffff"
                     inactiveColor="#000000"
@@ -62,12 +62,12 @@ export default class BottomNavigation extends React.Component {
                             )
                         }}/>
 
-                    {/* <Tab.Screen 
+                     <Tab.Screen 
                         name="Splash" 
                         component={SplashScreen} 
                         options={{
                             tabBarVisible: false
-                        }}/> */}
+                        }}/> 
 
                 </Tab.Navigator>
 

@@ -13,12 +13,15 @@ export default class HomeScreen extends Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       allArretes: undefined
     }
+
   }
 
   render() {
+
     return (
       <View style={styles.view}>
         <FlatList
@@ -38,7 +41,7 @@ export default class HomeScreen extends Component {
 
     var result = await _retrieveData("onBoardingPassed");
 		if (!result) {
-      this.props.navigation.navigate("Splash");
+      //this.props.navigation.navigate("Splash");
     }
  
     mySharedService.getAllArretesList().then((response) => response.json())
@@ -50,15 +53,19 @@ export default class HomeScreen extends Component {
  
   }
 }
-
+function OpenSplash({ screenName }) {
+  const navigation = useNavigation();
+  navigation.navigate(screenName)
+ 
+}
 function Item({ title, date, prefecture, pinned }) {
   return (
-    <TouchableWithoutFeedback onPress={() => useNavigation.navigate('Profile', { name: 'Jane' })}>
+    <TouchableWithoutFeedback onPress={() => this.OpenSplash('Splash')}>
       <View style={styles.item}>
 
         <View style={styles.layoutHorizontal}>
           <Text style={styles.title}>{title}</Text>
-          <TouchableOpacity onPress={() => alert('coucou')}>
+          <TouchableOpacity onPress={() => this.OpenSplash('Splash')}>
            <MaterialCommunityIcons styles={styles.buttonPinned} name="pin-outline" size={25} />
           </TouchableOpacity>
           
