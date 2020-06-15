@@ -8,6 +8,7 @@ import SettingsScreen from '../screens/SettingsScreen';
 import FiltersScreen from '../screens/FiltersScreen';
 import SplashScreen from '../screens/SplashScreen';
 import DetailScreen from '../screens/DetailScreen';
+import ModalScreen from '../screens/ModalScreen';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
@@ -43,11 +44,20 @@ export default class BottomNavigation extends React.Component {
                             <MaterialCommunityIcons name="filter" color={color} size={25} />
                             )
                         }} /> */}
-                     <Tab.Screen 
+                     {/* <Tab.Screen 
                         name="Filters" 
                         component={FiltersScreen}
                         options={{
                             tabBarLabel: 'Filters',
+                            tabBarIcon: ({ color }) => (
+                            <MaterialCommunityIcons name="filter" color={color} size={25} />
+                            )
+                        }} /> */}
+                        <Tab.Screen 
+                        name="Modal" 
+                        component={ModalScreen}
+                        options={{
+                            tabBarLabel: 'Modal',
                             tabBarIcon: ({ color }) => (
                             <MaterialCommunityIcons name="filter" color={color} size={25} />
                             )
@@ -62,16 +72,16 @@ export default class BottomNavigation extends React.Component {
                             )
                         }}/>
 
-                     <Tab.Screen 
+                     
+
+                </Tab.Navigator>
+
+                <Tab.Screen 
                         name="Splash" 
                         component={SplashScreen} 
                         options={{
                             tabBarVisible: false
                         }}/> 
-
-                </Tab.Navigator>
-
-                
 
             </NavigationContainer>
 		);
