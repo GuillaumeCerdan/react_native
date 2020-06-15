@@ -7,6 +7,7 @@ import ActionBar from 'react-native-action-bar';
 
 import BottomNavigation from './uicomponents/BottomNavigation';
 import SplashScreen from './screens/SplashScreen';
+import 'react-native-gesture-handler';
 
 export default class App extends React.Component {
 
@@ -21,9 +22,13 @@ export default class App extends React.Component {
 		return ( 
 			<SafeAreaView style={styles.mainView}>
 
-				<ActionBar 
-					style={styles.actionBar}
-					title={'Application CDA'} />
+			<ActionBar
+				containerStyle={styles.actionBar}
+				backgroundColor='#33cc33'
+				title='APPLICATION CDA'
+				leftIconName={'back'}
+				onLeftPress={() => console.log('Left!')}
+             />
 
 				<BottomNavigation/>
 
@@ -54,7 +59,7 @@ const styles = StyleSheet.create({
 		flex: 1
 	},
 	actionBar: { 
-		flex: 1, 
-		height: 28 
+		marginTop: 28,
+		height: 45
 	}
 });
