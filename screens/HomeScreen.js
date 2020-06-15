@@ -21,7 +21,7 @@ export default class HomeScreen extends Component {
       arreteTitle: '',
       arreteDate: '',
       arretePrefecture: '',
-    }
+    } 
 
   }
 
@@ -87,15 +87,17 @@ export default class HomeScreen extends Component {
   } 
 
   renderDate(str) {
-    return str.split("T")[0];
+    return str.split("T")[0];  
   }
  
   async componentDidMount() { 
  
     this.props.navigation.addListener('focus', () => {
-      console.log('coucoufocus');
+      
       mySharedService.getAllArretesList().then((response) => response.json())
       .then(data => {
+        // Remove le premier item
+        data.shift();
         this.setState({
           allArretes: data,
         })
