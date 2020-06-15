@@ -25,14 +25,13 @@ export default class HomeScreen extends Component {
     this.setState({ modalVisible: visible });
   }
   render() {
-    const { modalVisible } = this.state;
 
     return (
       <View style={styles.view}>
         <Modal
           animationType="slide"
           transparent={true}
-          visible={modalVisible}
+          visible={this.state.modalVisible}
           onRequestClose={() => {
             Alert.alert("Modal has been closed.");
           }}
@@ -44,7 +43,7 @@ export default class HomeScreen extends Component {
               <TouchableHighlight
                 style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
                 onPress={() => {
-                  this.setModalVisible(!modalVisible);
+                  this.setModalVisible(false);
                 }}
               >
                 <Text style={styles.textStyle}>Hide Modal</Text>
@@ -55,7 +54,7 @@ export default class HomeScreen extends Component {
 
         <FlatList
           data={this.state.allArretes}
-          renderItem={({ item }) => <Item title={item.name} date={this.renderDate(item.date)} prefecture={item.prefecture.name} pinned={item.pinned} style={styles.item} />}
+          renderItem={({ item }) => <Item openModal={this.setModalVisible} title={item.name} date={this.renderDate(item.date)} prefecture={item.prefecture.name} pinned={item.pinned} style={styles.item} />}
           keyExtractor={({ id }, index) => id.toString()}
         />
       </View>
@@ -81,23 +80,27 @@ export default class HomeScreen extends Component {
     });
  
   }
+
+  
+
 }
 function OpenSplash({ screenName }) {
   const navigation = useNavigation();
   navigation.navigate(screenName)
  
 }
-function Item({ title, date, prefecture, pinned, modalVisible }) {
+
+function Item ({ openModal, title, date, prefecture, pinned, modalVisible }) {
   return (
-    <TouchableWithoutFeedback onPress={() => this.setModalVisible(!modalVisible)}>
-      <View style={styles.item}>
+    <TouchableWithoutFeedback onPress={() => openModal(!modalVisible)}>
+      <View style={styles.item}> 
 
         <View style={styles.layoutHorizontal}>
           <Text style={styles.title}>{title}</Text>
-          <TouchableOpacity onPress={() => this.OpenSplash('Splash')}>
+          <TouchableOpacity>
            <MaterialCommunityIcons styles={styles.buttonPinned} name="pin-outline" size={25} />
           </TouchableOpacity>
-          
+
         </View>
 
         <View style={styles.layoutHorizontal}>
@@ -113,6 +116,7 @@ function Item({ title, date, prefecture, pinned, modalVisible }) {
     </TouchableWithoutFeedback>
   );
 }
+
 
 const styles = StyleSheet.create({
   item: {
