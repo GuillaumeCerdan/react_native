@@ -80,13 +80,7 @@ const styles = StyleSheet.create({
   button_text_toggled: {
     color: "#ffffff"
   },
-  button_untoggled: {
-    backgroundColor: "#ffffff",
-    marginRight: 15,
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius:7
-  },
+
   button_text_toggled: {
     color: "#fff"
   },
