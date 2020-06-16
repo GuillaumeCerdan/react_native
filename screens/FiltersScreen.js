@@ -2,17 +2,24 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, StyleSheet, Picker, CheckBox, SafeAreaView, ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
+import { _retrieveData } from "../utils/utils";
+
+
+import mySharedService from "../shared/MySharedServices";
+
+
 export default class FiltersScreen extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			pickerValue: '',
+			pickerValue: 'Ardèche',
+			allArrete: undefined
 		  }
 	}
 
 	goToHome = () => {
-		this.props.navigation.navigate('Home');
+		this.props.navigation.navigate('Home', {prefSelected: this.state.pickerValue});
 	}
 
 	render() {
@@ -37,25 +44,25 @@ export default class FiltersScreen extends Component {
 							<Text style={styles.sub_title}>
 								Préfectures
 							</Text>
-						</View>
+						</View> 
 
 						<View style={styles.view}>
 							<View style={styles.input}>
 								<Picker
-									selectedValue={(this.state && this.state.pickerValue) || 'option0'}
+									selectedValue={this.state.pickerValue}
 									style={ styles.input }
 									onValueChange={(itemValue) => this.setState({pickerValue: itemValue})}
 									>
-									<Picker.Item label="Choisir une préfecture" value="option0"/>
-									<Picker.Item label="Ardèche" value="option1"/>
-									<Picker.Item label="Var" value="option2"/>
-									<Picker.Item label="Bouches-du-Rhône" value="option3"/>
-									<Picker.Item label="Alpes-Maritimes" value="option4"/>
+									<Picker.Item label="Choisir une préfecture" value="noValue"/>
+									<Picker.Item label="Ardèche" value="Ardèche"/>
+									<Picker.Item label="Var" value="Var"/>
+									<Picker.Item label="Bouches-du-Rhône" value="Bouches-du-Rhône"/>
+									<Picker.Item label="Alpes-Maritimes" value="Alpes-Maritimes"/>
 
 								</Picker>
 							</View>
 							
-						</View>
+						</View> 
 
 						<View style={styles.view}>
 							<Text style={styles.sub_title}>
@@ -119,7 +126,18 @@ export default class FiltersScreen extends Component {
 		)
 	}
 
-	
+	async componentDidMount() { 
+
+		console.log("blbabaablkab")
+
+		mySharedService.getAllArretesList().then((response) => response.json())
+		.then(data => {
+		  this.setState({
+			allArretes: data,
+		  })
+		});
+	 
+	}
 
 
 

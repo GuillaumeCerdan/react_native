@@ -69,7 +69,7 @@ export default class HomeScreen extends Component {
 
         <FlatList
           data={this.state.allArretes}
-
+          extraData={this.state.allArretes}
           renderItem={({ item }) => <Item openModal={this.setModalVisible} 
                                       data = {[
                                         item.name, 
@@ -91,24 +91,25 @@ export default class HomeScreen extends Component {
   }
  
   async componentDidMount() { 
+
+    this.props.navigation.navigate("Splash");
  
     this.props.navigation.addListener('focus', () => {
       
-      mySharedService.getAllArretesList().then((response) => response.json())
-      .then(data => {
+      /*mySharedService.getAllArretesList().then((response) => response.json())
+      .then(data => { 
         // Remove le premier item
-        data.shift();
+        //data.filter(item => item.prefecture == );
         this.setState({
           allArretes: data,
-        })
-      });
+        })  
+      });*/
 		});
 
     var result = await _retrieveData("onBoardingPassed");
 		if (!result) {
       //this.props.navigation.navigate("Splash");
     }
-    console.log('coucou');
     mySharedService.getAllArretesList().then((response) => response.json())
     .then(data => {
       this.setState({
@@ -117,6 +118,18 @@ export default class HomeScreen extends Component {
     });
  
   }
+
+  componentDidUpdate(prevProps) {
+    console.log('prevProps', prevProps);
+    if (prevProps.route.params != undefined) {
+      console.log('prevProps.route.params.prefSelected', prevProps.route.params.prefSelected); 
+      var prevData = this.state.allArretes;
+      prevData.filter(arrete => arrete.prefecture == prevProps.route.params.prefSelected);
+      this.state.allArretes = prevData;
+    }
+    
+  }
+  
 
 }
 

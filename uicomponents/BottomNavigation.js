@@ -35,15 +35,6 @@ export default class BottomNavigation extends React.Component {
                             <MaterialCommunityIcons name="home" color={color} size={25} />
                             )
                         }} />
-                    {/* <Tab.Screen 
-                        name="Detail" 
-                        component={DetailScreen}
-                        options={{
-                            tabBarLabel: 'Detail',
-                            tabBarIcon: ({ color }) => (
-                            <MaterialCommunityIcons name="filter" color={color} size={25} />
-                            )
-                        }} /> */}
                      <Tab.Screen 
                         name="Filters" 
                         component={FiltersScreen}
